@@ -1,9 +1,6 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "softskill")
 public class SoftSkill {
@@ -12,6 +9,9 @@ public class SoftSkill {
     private Integer id;
     private String softskill;
     private Integer person_id;
+
+    public SoftSkill() {
+    }
 
     public Integer getId() {
         return id;
@@ -35,8 +35,5 @@ public class SoftSkill {
 
     public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
-    }
-
-    public SoftSkill() {
     }
 }

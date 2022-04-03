@@ -1,17 +1,19 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "about")
 public class About {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String about;
     private Integer person_id;
+
+    public About() {
+    }
 
     public Integer getId() {
         return id;
@@ -35,8 +37,5 @@ public class About {
 
     public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
-    }
-
-    public About() {
     }
 }

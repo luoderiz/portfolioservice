@@ -1,9 +1,6 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "workexperience")
@@ -17,6 +14,9 @@ public class WorkExperience {
     private String details;
     private Integer institution_id;
     private Integer person_id;
+
+    public WorkExperience() {
+    }
 
     public Integer getId() {
         return id;
@@ -58,7 +58,7 @@ public class WorkExperience {
         this.details = details;
     }
 
-    public Integer getInstitution_id() {
+   public Integer getInstitution_id() {
         return institution_id;
     }
 
@@ -72,8 +72,5 @@ public class WorkExperience {
 
     public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
-    }
-
-    public WorkExperience() {
     }
 }

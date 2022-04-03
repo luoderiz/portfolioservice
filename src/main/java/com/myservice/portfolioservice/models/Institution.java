@@ -1,9 +1,7 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "institution")
 public class Institution {
@@ -12,6 +10,31 @@ public class Institution {
     private Integer id;
     private String name;
     private String city;
+
+    @OneToMany(mappedBy = "institution_id")
+    private List<WorkExperience> workexperience;
+
+    @OneToMany(mappedBy = "institution_id")
+    private List<Education> education;
+
+    public Institution() {
+    }
+
+    public List<WorkExperience> getWorkexperience() {
+        return workexperience;
+    }
+
+    public void setWorkexperience(List<WorkExperience> workexperience) {
+        this.workexperience = workexperience;
+    }
+
+    public List<Education> getEducation() {
+        return education;
+    }
+
+    public void setEducation(List<Education> education) {
+        this.education = education;
+    }
 
     public Integer getId() {
         return id;
@@ -35,8 +58,5 @@ public class Institution {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public Institution() {
     }
 }

@@ -1,9 +1,6 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "education")
@@ -16,6 +13,9 @@ public class Education {
     private Date date_to;
     private Integer institution_id;
     private Integer person_id;
+
+    public Education() {
+    }
 
     public Integer getId() {
         return id;
@@ -63,8 +63,5 @@ public class Education {
 
     public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
-    }
-
-    public Education() {
     }
 }

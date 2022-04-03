@@ -13,10 +13,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>portfolioService</name>
     <description>my portfolio service</description>
+
     <properties>
         <java.version>11</java.version>
         <mysql.connector.java.version>8.0.28</mysql.connector.java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
