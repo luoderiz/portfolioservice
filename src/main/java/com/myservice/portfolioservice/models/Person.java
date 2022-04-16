@@ -1,7 +1,5 @@
 package com.myservice.portfolioservice.models;
 
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -46,7 +44,18 @@ public class Person {
     @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperience> workexperience;
 
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Project> projects;
+
     public Person() {
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     public List<About> getAbout() {

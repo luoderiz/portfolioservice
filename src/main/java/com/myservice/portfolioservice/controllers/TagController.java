@@ -1,6 +1,5 @@
 package com.myservice.portfolioservice.controllers;
 
-import com.myservice.portfolioservice.models.About;
 import com.myservice.portfolioservice.models.Tag;
 import com.myservice.portfolioservice.repositories.TagRepository;
 import org.springframework.beans.BeanUtils;
