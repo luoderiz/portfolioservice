@@ -1,19 +1,41 @@
 package com.myservice.portfolioservice.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 @Entity(name = "workexperience")
 public class WorkExperience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank(message = "Position should not be null or blank")
+    @Size(min = 3, max = 1020, message = "Position must be between 3 and 1020 characters")
     private String position;
+
+    @Past(message = "Date should be a valid past date")
     private Date date_from;
+
+    @Past(message = "Date should be a valid past date")
     private Date date_to;
+
+    @Size(min = 10, max = 255, message = "Details must be between 10 and 255 characters")
     private String details;
+
     private Integer institution_id;
     private Integer person_id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "workexperience_has_tag",
+            joinColumns = @JoinColumn(name = "workexperience_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tag;
 
     public WorkExperience() {
     }
@@ -73,4 +95,13 @@ public class WorkExperience {
     public void setPerson_id(Integer person_id) {
         this.person_id = person_id;
     }
+
+    public List<Tag> getTag() {
+        return tag;
+    }
+
+    public void setTag(List<Tag> tag) {
+        this.tag = tag;
+    }
+
 }

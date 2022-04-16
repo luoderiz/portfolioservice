@@ -1,6 +1,11 @@
 package com.myservice.portfolioservice.models;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity(name = "person")
@@ -9,25 +14,36 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Name should not be null or blank")
+    @Size(min = 1, max = 60, message = "Name must be between 1 and 60 characters")
     private String name;
+
+    @NotBlank(message = "Surname should not be null or blank")
+    @Size(min = 1, max = 60, message = "Surname must be between 1 and 60 characters")
     private String surname;
+
+    @Size(min = 1, max = 45, message = "Git must be between 1 and 45 characters")
     private String git;
+
+    @Size(min = 10, max = 14, message = "Tel must be between 10 and 14 characters")
     private Integer tel;
+
+    @Email(message = "Email should be valid")
     private String mail;
 
-    @OneToMany(mappedBy = "person_id")
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<About> about;
 
-    @OneToMany(mappedBy = "person_id")
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SoftSkill> softskill;
 
-    @OneToMany(mappedBy = "person_id")
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HardSkill> hardskill;
 
-    @OneToMany(mappedBy = "person_id")
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Education> education;
 
-    @OneToMany(mappedBy = "person_id")
+    @OneToMany(mappedBy = "person_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperience> workexperience;
 
     public Person() {

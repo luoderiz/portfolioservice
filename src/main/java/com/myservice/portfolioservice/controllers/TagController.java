@@ -1,7 +1,8 @@
 package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.About;
-import com.myservice.portfolioservice.repositories.AboutRepository;
+import com.myservice.portfolioservice.models.Tag;
+import com.myservice.portfolioservice.repositories.TagRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,40 +11,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/about")
-public class AboutController {
+@RequestMapping("/api/v1/tag")
+public class TagController {
     @Autowired
-    private AboutRepository aboutRepository;
+    private TagRepository tagRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<About> list() {
-        return aboutRepository.findAll();
+    public List<Tag> list() {
+        return tagRepository.findAll();
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("{id}")
-    public About get(@PathVariable Integer id) {
-        return aboutRepository.getById(id);
+    public Tag get(@PathVariable Integer id) {
+        return tagRepository.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public About create(@RequestBody final About about){
-        return aboutRepository.saveAndFlush(about);
+    public Tag create(@RequestBody final Tag tag){
+        return tagRepository.saveAndFlush(tag);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
-        aboutRepository.deleteById(id);
+        tagRepository.deleteById(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public About update(@PathVariable Integer id, @RequestBody About about) {
+    public Tag update(@PathVariable Integer id, @RequestBody Tag tag) {
         //TODO: add validation that all attributes are passed in, otherwise return a 400
-        About existingAbout = aboutRepository.getById(id);
-        BeanUtils.copyProperties(about, existingAbout, "id");
-        return aboutRepository.saveAndFlush(existingAbout);
+        Tag existingTag = tagRepository.getById(id);
+        BeanUtils.copyProperties(tag, existingTag, "id");
+        return tagRepository.saveAndFlush(existingTag);
     }
+
 }

@@ -1,6 +1,8 @@
 package com.myservice.portfolioservice.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity(name = "about")
 public class About {
@@ -9,7 +11,10 @@ public class About {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "About should not be null or blank")
+    @Size(min = 3, max = 1020, message = "About must be between 3 and 1020 characters")
     private String about;
+
     private Integer person_id;
 
     public About() {
