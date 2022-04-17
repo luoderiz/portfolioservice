@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.Institution;
 import com.myservice.portfolioservice.repositories.InstitutionRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +37,6 @@ public class InstitutionController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         institutionRepository.deleteById(id);
-    }
-
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Institution update(@PathVariable Integer id, @RequestBody Institution institution) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        Institution existingInstitution = getInstitution(id);
-        BeanUtils.copyProperties(institution, existingInstitution, "id");
-        return institutionRepository.saveAndFlush(existingInstitution);
     }
 
     private Institution getInstitution(Integer id){

@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.SoftSkill;
 import com.myservice.portfolioservice.repositories.SoftSkillRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +38,4 @@ public class SoftSkillController {
         softSkillRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public SoftSkill update(@PathVariable Integer id, @RequestBody SoftSkill softSkill) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        SoftSkill existingSoftSkill = softSkillRepository.getById(id);
-        BeanUtils.copyProperties(softSkill, existingSoftSkill, "id");
-        return softSkillRepository.saveAndFlush(existingSoftSkill);
-    }
 }

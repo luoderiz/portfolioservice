@@ -1,17 +1,11 @@
 package com.myservice.portfolioservice.controllers;
 
-import com.myservice.portfolioservice.models.Person;
-import com.myservice.portfolioservice.models.Project;
+
 import com.myservice.portfolioservice.models.Tag;
-import com.myservice.portfolioservice.models.WorkExperience;
 import com.myservice.portfolioservice.repositories.TagRepository;
-import com.myservice.portfolioservice.repositories.WorkExperienceRepository;
-import com.myservice.portfolioservice.repositories.EducationRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,10 +13,7 @@ import java.util.List;
 @RequestMapping("/api/tag")
 public class TagController {
     @Autowired
-
     private TagRepository tagRepository;
-    private WorkExperienceRepository workExperienceRepository;
-    private EducationRepository educationRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -48,11 +39,4 @@ public class TagController {
         tagRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Tag update(@PathVariable Integer id, @RequestBody Tag tag) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        Tag existingTag = tagRepository.getById(id);
-        BeanUtils.copyProperties(tag, existingTag, "id");
-        return tagRepository.saveAndFlush(existingTag);
-    }
 }

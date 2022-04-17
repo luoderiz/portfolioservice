@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.Project;
 import com.myservice.portfolioservice.repositories.ProjectRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +42,4 @@ public class ProjectController {
         projectRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Project update(@PathVariable Integer id, @RequestBody Project project) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        Project existingProject = projectRepository.getById(id);
-        BeanUtils.copyProperties(project, existingProject, "id");
-        return projectRepository.saveAndFlush(existingProject);
-    }
 }

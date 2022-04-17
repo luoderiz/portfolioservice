@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.WorkExperience;
 import com.myservice.portfolioservice.repositories.WorkExperienceRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +36,5 @@ public class WorkExperienceController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         workExperienceRepository.deleteById(id);
-    }
-
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public WorkExperience update(@PathVariable Integer id, @RequestBody WorkExperience workExperience) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        WorkExperience existingWorkExperience = workExperienceRepository.getById(id);
-        BeanUtils.copyProperties(workExperience, existingWorkExperience, "id");
-        return workExperienceRepository.saveAndFlush(existingWorkExperience);
     }
 }

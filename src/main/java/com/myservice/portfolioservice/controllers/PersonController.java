@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.*;
 import com.myservice.portfolioservice.repositories.PersonRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -41,13 +40,6 @@ public class PersonController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
         personRepository.deleteById(id);
-    }
-
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Person update(@PathVariable Integer id, @RequestBody Person person) {
-        Person existingPerson = getPerson(id);
-        BeanUtils.copyProperties(person, existingPerson, "id");
-        return personRepository.saveAndFlush(existingPerson);
     }
 
     @GetMapping("/{id}/about")

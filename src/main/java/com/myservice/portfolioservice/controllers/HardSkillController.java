@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.HardSkill;
 import com.myservice.portfolioservice.repositories.HardSkillRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +38,4 @@ public class HardSkillController {
         hardSkillRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public HardSkill update(@PathVariable Integer id, @RequestBody HardSkill hardSkill) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        HardSkill existingHardSkill = hardSkillRepository.getById(id);
-        BeanUtils.copyProperties(hardSkill, existingHardSkill, "id");
-        return hardSkillRepository.saveAndFlush(existingHardSkill);
-    }
 }

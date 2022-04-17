@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.Education;
 import com.myservice.portfolioservice.repositories.EducationRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +38,4 @@ public class EducationController {
         educationRepository.deleteById(id);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Education update(@PathVariable Integer id, @RequestBody Education education) {
-        //TODO: add validation that all attributes are passed in, otherwise return a 400
-        Education existingEducation = educationRepository.getById(id);
-        BeanUtils.copyProperties(education, existingEducation, "id");
-        return educationRepository.saveAndFlush(existingEducation);
-    }
 }
