@@ -3,7 +3,6 @@ package com.myservice.portfolioservice.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "tag")
 public class Tag {

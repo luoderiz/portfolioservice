@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Digits;
 import java.util.List;
 
 @Entity(name = "person")
@@ -23,7 +24,7 @@ public class Person {
     @Size(min = 1, max = 45, message = "Git must be between 1 and 45 characters")
     private String git;
 
-    @Size(min = 10, max = 14, message = "Tel must be between 10 and 14 characters")
+    @Digits(message = "Telephone should be valid", integer = 13, fraction = 0)
     private Integer tel;
 
     @Email(message = "Email should be valid")
@@ -58,6 +59,10 @@ public class Person {
         this.projects = projects;
     }
 
+    public void addProjects(Project project){
+        this.projects.add(project);
+    }
+
     public List<About> getAbout() {
         return about;
     }
@@ -66,8 +71,16 @@ public class Person {
         this.about = about;
     }
 
+    public void addAbout(About about) {
+        this.about.add(about);
+    }
+
     public List<SoftSkill> getSoftskill() {
         return softskill;
+    }
+
+    public void addSoftskill(SoftSkill softSkill) {
+        this.softskill.add(softSkill);
     }
 
     public void setSoftskill(List<SoftSkill> softskill) {
@@ -82,6 +95,10 @@ public class Person {
         this.hardskill = hardskill;
     }
 
+    public void addHardskill(HardSkill hardSkill) {
+        this.hardskill.add(hardSkill);
+    }
+
     public List<Education> getEducation() {
         return education;
     }
@@ -90,12 +107,20 @@ public class Person {
         this.education = education;
     }
 
+    public void addEducation(Education education) {
+        this.education.add(education);
+    }
+
     public List<WorkExperience> getWorkexperience() {
         return workexperience;
     }
 
     public void setWorkexperience(List<WorkExperience> workexperience) {
         this.workexperience = workexperience;
+    }
+
+    public  void addWorkexperience(WorkExperience workExperience){
+        this.workexperience.add(workExperience);
     }
 
     public Integer getId() {
