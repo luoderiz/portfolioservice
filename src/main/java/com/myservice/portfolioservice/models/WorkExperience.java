@@ -26,7 +26,9 @@ public class WorkExperience {
     @Size(min = 10, max = 255, message = "Details must be between 10 and 255 characters")
     private String details;
 
-    private Integer institution_id;
+    @OneToMany(mappedBy = "id")
+    private List<Institution> Institution;
+
     private Integer person_id;
 
     @ManyToMany
@@ -80,12 +82,12 @@ public class WorkExperience {
         this.details = details;
     }
 
-   public Integer getInstitution_id() {
-        return institution_id;
+    public List<com.myservice.portfolioservice.models.Institution> getInstitution() {
+        return Institution;
     }
 
-    public void setInstitution_id(Integer institution_id) {
-        this.institution_id = institution_id;
+    public void setInstitution(List<com.myservice.portfolioservice.models.Institution> institution) {
+        Institution = institution;
     }
 
     public Integer getPerson_id() {

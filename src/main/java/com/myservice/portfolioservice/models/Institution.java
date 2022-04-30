@@ -19,29 +19,7 @@ public class Institution {
     @Size(min = 2, max = 60, message = "City must be between 2 and 60 characters")
     private String city;
 
-    @OneToMany(mappedBy = "institution_id")
-    private List<WorkExperience> workexperience;
-
-    @OneToMany(mappedBy = "institution_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Education> education;
-
     public Institution() {
-    }
-
-    public List<WorkExperience> getWorkexperience() {
-        return workexperience;
-    }
-
-    public void setWorkexperience(List<WorkExperience> workexperience) {
-        this.workexperience = workexperience;
-    }
-
-    public List<Education> getEducation() {
-        return education;
-    }
-
-    public void setEducation(List<Education> education) {
-        this.education = education;
     }
 
     public Integer getId() {
