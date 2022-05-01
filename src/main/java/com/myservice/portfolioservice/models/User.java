@@ -1,6 +1,9 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -17,12 +20,6 @@ public class User {
     @NotBlank(message = "Username should not be null or blank")
     @Size(min = 8, max = 20, message = "Username must be between 3 and 20 characters")
     private String password;
-
-    private String token;
-
-    public String getToken() {
-        return token;
-    }
 
     private Integer person_id;
 
@@ -61,7 +58,4 @@ public class User {
         this.person_id = person_id;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
