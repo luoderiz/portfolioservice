@@ -1,8 +1,9 @@
 package com.myservice.portfolioservice.controllers;
-import com.myservice.portfolioservice.dto.UserRegistration;
+import com.myservice.portfolioservice.dto.UserLogin;
+import com.myservice.portfolioservice.models.Person;
 import com.myservice.portfolioservice.models.User;
-import com.myservice.portfolioservice.models.UserDto;
 
+import com.myservice.portfolioservice.repositories.PersonRepository;
 import com.myservice.portfolioservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,28 +20,36 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/user")
-public class UserDtoController {
+@RequestMapping("/api")
+public class LoginRegistrationController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @PostMapping("/login")
-    public UserDto login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public UserLogin login(@RequestParam("username") String username, @RequestParam("password") String password) {
         String token = getJWTToken(username);
-        UserDto userDto = new UserDto();
-        userDto.setUsername(username);
-        userDto.setToken(token);
-        return userDto;
+        UserLogin userLogin = new UserLogin();
+        userLogin.setUsername(username);
+        userLogin.setToken(token);
+        return userLogin;
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserRegistration register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
+    public void register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("surname") String surname, @RequestParam("email") String email) {
+        Person person = new Person();
+        person.setName(name);
+        person.setSurname(surname);
+        person = personRepository.saveAndFlush(person);
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
-        return userRegistration;
+        user.setPerson_id(person.getId());
+        userRepository.saveAndFlush(user);
     }
 
     private String getJWTToken(String username) {

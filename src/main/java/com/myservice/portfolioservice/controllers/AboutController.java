@@ -10,20 +10,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/about")
+@RequestMapping("/api/user/{username}/about")
 public class AboutController {
     @Autowired
     private AboutRepository aboutRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<About> list() {
-        return aboutRepository.findAll();
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("{id}")
+    @RequestMapping
     public About get(@PathVariable Integer id) {
         return aboutRepository.getById(id);
     }
@@ -34,7 +28,7 @@ public class AboutController {
         return aboutRepository.saveAndFlush(about);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{about_id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         aboutRepository.deleteById(id);
     }

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer tag_id;
 
     @NotBlank(message = "Tag should not be null or blank")
     @Size(min = 3, max = 45, message = "Tag must be between 3 and 45 characters")
@@ -17,12 +17,12 @@ public class Tag {
     public Tag() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getTag_id() {
+        return tag_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTag_id(Integer id) {
+        this.tag_id = id;
     }
 
     public String getTag() {

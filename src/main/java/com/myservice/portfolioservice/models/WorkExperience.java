@@ -11,7 +11,7 @@ import java.util.List;
 public class WorkExperience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer workexperience_id;
 
     @NotBlank(message = "Position should not be null or blank")
     @Size(min = 3, max = 1020, message = "Position must be between 3 and 1020 characters")
@@ -26,7 +26,7 @@ public class WorkExperience {
     @Size(min = 10, max = 255, message = "Details must be between 10 and 255 characters")
     private String details;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "institution_id")
     private List<Institution> Institution;
 
     private Integer person_id;
@@ -42,12 +42,12 @@ public class WorkExperience {
     public WorkExperience() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getWorkexperience_id() {
+        return workexperience_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setWorkexperience_id(Integer id) {
+        this.workexperience_id = id;
     }
 
     public String getPosition() {

@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/project")
+@RequestMapping("/api/user/{username}/project")
 public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
@@ -20,13 +20,7 @@ public class ProjectController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Project> list() {
-        return projectRepository.findAll();
-    }
-
-    @GetMapping
-    @RequestMapping("{id}")
+    @RequestMapping
     @ResponseStatus(HttpStatus.OK)
     public Project get(@PathVariable Integer id) {
         return projectRepository.getById(id);
@@ -38,7 +32,7 @@ public class ProjectController {
         return projectRepository.saveAndFlush(project);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{project_id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         projectRepository.deleteById(id);
     }

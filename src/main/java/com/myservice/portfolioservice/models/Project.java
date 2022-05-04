@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer project_id;
 
     @NotBlank(message = "Project name should not be null or blank")
     @Size(min = 1, max = 60, message = "Project name must be between 3 and 60 characters")
@@ -29,12 +29,12 @@ public class Project {
     public Project() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getProject_id() {
+        return project_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProject_id(Integer id) {
+        this.project_id = id;
     }
 
     public String getName() {

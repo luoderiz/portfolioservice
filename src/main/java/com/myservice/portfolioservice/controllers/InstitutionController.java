@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/institution")
@@ -18,13 +16,7 @@ public class InstitutionController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Institution> list() {
-        return institutionRepository.findAll();
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("/{id}")
+    @RequestMapping
     public Institution getById(@PathVariable Integer id) {
         return getInstitution(id);
     }
@@ -35,7 +27,7 @@ public class InstitutionController {
         return institutionRepository.saveAndFlush(institution);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{institution_id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         institutionRepository.deleteById(id);
     }

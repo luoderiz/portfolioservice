@@ -10,20 +10,14 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/hardskill")
+@RequestMapping("/api/user/{username}/hardskill")
 public class HardSkillController {
     @Autowired
     private HardSkillRepository hardSkillRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<HardSkill> list() {
-        return hardSkillRepository.findAll();
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping("{id}")
+    @RequestMapping
     public HardSkill get(@PathVariable Integer id) {
         return hardSkillRepository.getById(id);
     }
@@ -34,7 +28,7 @@ public class HardSkillController {
         return hardSkillRepository.saveAndFlush(hardSkill);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{hardskill_id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer id) {
         hardSkillRepository.deleteById(id);
     }

@@ -1,13 +1,12 @@
-package com.myservice.portfolioservice.models;
+package com.myservice.portfolioservice.dto;
 
-public class UserDto {
-    private Integer userdto_id;
+public class UserLogin {
 
     private String username;
 
     private String token;
 
-    public UserDto() {
+    public UserLogin() {
     }
 
     public String getUsername() {
@@ -26,11 +25,4 @@ public class UserDto {
         this.token = token;
     }
 
-    public void setUserdto_id(Integer id) {
-        this.userdto_id = id;
-    }
-
-    public Integer getUserdto_id() {
-        return userdto_id;
-    }
 }

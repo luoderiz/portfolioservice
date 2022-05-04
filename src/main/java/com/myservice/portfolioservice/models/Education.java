@@ -11,7 +11,7 @@ import java.util.List;
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer education_id;
 
     @NotBlank(message = "Degree should not be null or blank")
     @Size(min = 10, max = 90, message = "Degree must be between 10 and 90 characters")
@@ -23,7 +23,7 @@ public class Education {
     @Past(message = "Date should be a valid past date")
     private Date date_to;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "institution_id")
     private List<Institution> Institution;
 
     private Integer person_id;
@@ -39,12 +39,12 @@ public class Education {
     public Education() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getEducation_id() {
+        return education_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEducation_id(Integer education_id) {
+        this.education_id = education_id;
     }
 
     public String getDegree() {

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class About {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer about_id;
 
     @NotBlank(message = "About should not be null or blank")
     @Size(min = 3, max = 1020, message = "About must be between 3 and 1020 characters")
@@ -19,12 +19,12 @@ public class About {
     public About() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getAbout_id() {
+        return about_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAbout_id(Integer about_id) {
+        this.about_id = about_id;
     }
 
     public String getAbout() {
