@@ -1,6 +1,11 @@
 package com.myservice.portfolioservice.controllers;
+import com.myservice.portfolioservice.dto.UserRegistration;
+import com.myservice.portfolioservice.models.User;
 import com.myservice.portfolioservice.models.UserDto;
 
+import com.myservice.portfolioservice.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +19,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api/user")
 public class UserDtoController {
+    @Autowired
+    UserRepository userRepository;
 
-    @PostMapping
+    @PostMapping("/login")
     public UserDto login(@RequestParam("username") String username, @RequestParam("password") String password) {
         String token = getJWTToken(username);
         UserDto userDto = new UserDto();
@@ -26,11 +33,20 @@ public class UserDtoController {
         return userDto;
     }
 
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserRegistration register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        return userRegistration;
+    }
+
     private String getJWTToken(String username) {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
-
         String token = Jwts
                 .builder()
                 .setId("PortfolioJWT")
@@ -43,8 +59,6 @@ public class UserDtoController {
                 .setExpiration(new Date(System.currentTimeMillis() + (30*60*1000)))
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
-
-
         return "Bearer " + token;
     }
 }

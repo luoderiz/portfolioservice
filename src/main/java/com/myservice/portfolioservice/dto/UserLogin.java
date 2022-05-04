@@ -1,15 +1,8 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-@Entity(name = "userdto")
 public class UserDto {
-    private Integer id;
+    private Integer userdto_id;
 
-    @NotBlank(message = "Username should not be null or blank")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
     private String username;
 
     private String token;
@@ -33,12 +26,11 @@ public class UserDto {
         this.token = token;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserdto_id(Integer id) {
+        this.userdto_id = id;
     }
 
-    @Id
-    public Integer getId() {
-        return id;
+    public Integer getUserdto_id() {
+        return userdto_id;
     }
 }
