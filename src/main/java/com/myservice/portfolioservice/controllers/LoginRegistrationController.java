@@ -52,6 +52,7 @@ public class LoginRegistrationController {
         userRepository.saveAndFlush(user);
     }
 
+    //todo: secretkey
     private String getJWTToken(String username) {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils

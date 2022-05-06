@@ -1,10 +1,14 @@
 package com.myservice.portfolioservice.controllers;
 
+import com.myservice.portfolioservice.models.Person;
 import com.myservice.portfolioservice.models.WorkExperience;
+import com.myservice.portfolioservice.repositories.PersonRepository;
 import com.myservice.portfolioservice.repositories.WorkExperienceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -13,11 +17,16 @@ public class WorkExperienceController {
     @Autowired
     private WorkExperienceRepository workExperienceRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping
-    public WorkExperience get(@PathVariable Integer id) {
-        return workExperienceRepository.getById(id);
+    public List<WorkExperience> getAllWorkexperience(@PathVariable String username) {
+        Person person= personRepository.findByUsername(username);
+        Integer id = person.getId();
+        return workExperienceRepository.findByPerson_id(id);
     }
 
     @PostMapping

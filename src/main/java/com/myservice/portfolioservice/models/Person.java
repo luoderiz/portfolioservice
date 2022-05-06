@@ -1,9 +1,9 @@
 package com.myservice.portfolioservice.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "person")
 public class Person {
@@ -21,6 +21,15 @@ public class Person {
 
     @Size(min = 1, max = 45, message = "Git must be between 1 and 45 characters")
     private String git;
+
+    @Email
+    private String mail;
+
+    @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
+    private String username;
+
+    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
+    private String password;
 
     public Person() {
     }
@@ -57,4 +66,11 @@ public class Person {
         this.git = git;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
