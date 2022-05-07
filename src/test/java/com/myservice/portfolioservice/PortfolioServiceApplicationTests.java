@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PortfolioServiceApplicationTests {
     @BeforeAll
     static void setUp() {
-        System.setProperty("DB_URL", "jdbc:mysql://localhost:3306/portfolio");
-        System.setProperty("DB_USERNAME", "root");
     }
 
     @Test
