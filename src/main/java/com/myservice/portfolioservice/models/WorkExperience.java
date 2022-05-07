@@ -26,9 +26,6 @@ public class WorkExperience {
     @Size(min = 10, max = 255, message = "Details must be between 10 and 255 characters")
     private String details;
 
-    @OneToMany(mappedBy = "institution_id")
-    private List<Institution> Institution;
-
     private Integer person_id;
 
     @ManyToMany
@@ -38,6 +35,10 @@ public class WorkExperience {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tag;
+
+    @ManyToOne
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
 
     public WorkExperience() {
     }
@@ -82,14 +83,6 @@ public class WorkExperience {
         this.details = details;
     }
 
-    public List<com.myservice.portfolioservice.models.Institution> getInstitution() {
-        return Institution;
-    }
-
-    public void setInstitution(List<com.myservice.portfolioservice.models.Institution> institution) {
-        Institution = institution;
-    }
-
     public Integer getPerson_id() {
         return person_id;
     }
@@ -106,4 +99,11 @@ public class WorkExperience {
         this.tag = tag;
     }
 
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
 }

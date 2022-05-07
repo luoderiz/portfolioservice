@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class HardSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hardskill_id;
+    private Integer skill_id;
 
     @NotBlank(message = "Skill should not be null or blank")
     @Size(min = 3, max = 1020, message = "Skill must be between 3 and 1020 characters")
@@ -20,11 +20,11 @@ public class HardSkill {
     }
 
     public Integer getHardskill_id() {
-        return hardskill_id;
+        return skill_id;
     }
 
     public void setHardskill_id(Integer id) {
-        this.hardskill_id = id;
+        this.skill_id = id;
     }
 
     public String getSkill() {

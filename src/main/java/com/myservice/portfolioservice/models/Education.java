@@ -23,8 +23,9 @@ public class Education {
     @Past(message = "Date should be a valid past date")
     private Date date_to;
 
-    @OneToMany(mappedBy = "institution_id")
-    private List<Institution> Institution;
+    @ManyToOne
+    @JoinColumn(name = "institution_id")
+    private Institution institution;
 
     private Integer person_id;
 
@@ -87,11 +88,11 @@ public class Education {
         this.tag = tag;
     }
 
-    public List<com.myservice.portfolioservice.models.Institution> getInstitution() {
-        return Institution;
+    public Institution getInstitution() {
+        return institution;
     }
 
-    public void setInstitution(List<com.myservice.portfolioservice.models.Institution> institution) {
-        Institution = institution;
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
     }
 }

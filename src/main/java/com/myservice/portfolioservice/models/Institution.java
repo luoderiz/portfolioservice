@@ -3,6 +3,7 @@ package com.myservice.portfolioservice.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity(name = "institution")
 public class Institution {
@@ -17,6 +18,7 @@ public class Institution {
     @NotBlank(message = "City should not be null or blank")
     @Size(min = 2, max = 60, message = "City must be between 2 and 60 characters")
     private String city;
+
 
     public Institution() {
     }

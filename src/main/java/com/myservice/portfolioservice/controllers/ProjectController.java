@@ -1,6 +1,8 @@
 package com.myservice.portfolioservice.controllers;
 
+import com.myservice.portfolioservice.models.Person;
 import com.myservice.portfolioservice.models.Project;
+import com.myservice.portfolioservice.repositories.PersonRepository;
 import com.myservice.portfolioservice.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,17 +17,29 @@ public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
     public ProjectController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     @GetMapping
-    @RequestMapping
     @ResponseStatus(HttpStatus.OK)
-    public Project get(@PathVariable Integer id) {
-        return projectRepository.getById(id);
+    @RequestMapping
+    public List<Project> getAllProject(@PathVariable String username) {
+        Person person = personRepository.findByUsername(username);
+        Integer id = person.getId();
+        return projectRepository.findByPerson_id(id);
     }
-
+/*
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping("{project_id}")
+        public Project getSpecificProject(@PathVariable String username, @PathVariable Integer project_id) {
+        return projectRepository.getById(project_id);
+    }
+*/
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Project create(@RequestBody final Project project){

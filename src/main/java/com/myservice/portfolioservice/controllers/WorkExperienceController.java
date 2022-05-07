@@ -29,6 +29,14 @@ public class WorkExperienceController {
         return workExperienceRepository.findByPerson_id(id);
     }
 
+    /*
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping("{workexperience_id}")
+    public WorkExperience getSpecificWorkexperience(@PathVariable String username, @PathVariable Integer workexperience_id) {
+        return workExperienceRepository.getById(workexperience_id);
+    }
+*/
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public WorkExperience create(@RequestBody final WorkExperience workExperience){

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/institution")
@@ -16,9 +18,8 @@ public class InstitutionController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping
-    public Institution getById(@PathVariable Integer id) {
-        return getInstitution(id);
+    public List<Institution> list() {
+        return institutionRepository.findAll();
     }
 
     @PostMapping
@@ -32,8 +33,12 @@ public class InstitutionController {
         institutionRepository.deleteById(id);
     }
 
-    private Institution getInstitution(Integer id){
-        return institutionRepository.findById(id)
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping
+    private Institution getInstitution(Integer institution_id){
+        return institutionRepository.findById(institution_id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la institución"));
     }
+
 }
