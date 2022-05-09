@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @CrossOrigin
@@ -38,13 +39,19 @@ public class AboutController {
 */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public About create(@RequestBody final About about){
-        return aboutRepository.saveAndFlush(about);
+    public About create(@PathVariable String username, @RequestParam("about") String about){
+        Person person = personRepository.findByUsername(username);
+        Integer personId = person.getId();
+        About newAbout = new About();
+        newAbout.setAbout(about);
+        newAbout.setPerson_id(personId);
+        return aboutRepository.saveAndFlush(newAbout);
     }
 
-    @RequestMapping(value = "{about_id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) {
-        aboutRepository.deleteById(id);
+    @RequestMapping(value = "/{about_id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+        public void delete(@PathVariable Integer about_id) {
+        aboutRepository.deleteById(about_id);
     }
 
 }

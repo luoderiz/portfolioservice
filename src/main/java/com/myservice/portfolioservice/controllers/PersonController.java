@@ -5,7 +5,6 @@ import com.myservice.portfolioservice.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -16,15 +15,15 @@ import java.util.List;
 public class PersonController {
     @Autowired
     private PersonRepository personRepository;
-/*
-    // Todo: Ver permisos
-    @GetMapping("/{id}")
+
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Person getById(@PathVariable Integer id) {
-        return getPerson(id);
+    @RequestMapping
+    public String getNameByUsername(@PathVariable String username) {
+        return personRepository.findByUsername(username).getName();
     }
 
-
+/*
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody final Person person){
