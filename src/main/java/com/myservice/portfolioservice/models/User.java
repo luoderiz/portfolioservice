@@ -26,7 +26,6 @@ public class User {
     @Email(message = "Email should be valid")
     private String email;
 
-
     private Integer person_id;
 
     public User() {

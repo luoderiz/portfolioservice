@@ -9,4 +9,5 @@ import java.util.List;
 public interface EducationRepository extends JpaRepository<Education, Integer> {
     @Query("select t from education t where t.person_id=?1")
     List<Education> findByPerson_id(Integer id);
+
 }

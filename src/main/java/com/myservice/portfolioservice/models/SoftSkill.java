@@ -10,6 +10,14 @@ public class SoftSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer skill_id;
 
+    public Integer getSkill_id() {
+        return skill_id;
+    }
+
+    public void setSkill_id(Integer skill_id) {
+        this.skill_id = skill_id;
+    }
+
     @NotBlank(message = "Skill should not be null or blank")
     @Size(min = 3, max = 1020, message = "Skill must be between 3 and 1020 characters")
     private String skill;
@@ -19,13 +27,6 @@ public class SoftSkill {
     public SoftSkill() {
     }
 
-    public Integer getSoftskill_id() {
-        return skill_id;
-    }
-
-    public void setSoftskill_id(Integer id) {
-        this.skill_id = id;
-    }
 
     public String getSkill() {
         return skill;

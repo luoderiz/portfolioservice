@@ -22,15 +22,23 @@ public class InstitutionController {
         return institutionRepository.findAll();
     }
 
-    @PostMapping
+
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Institution create(@RequestBody final Institution institution){
-        return institutionRepository.saveAndFlush(institution);
+    public Institution create(@PathVariable String username,
+                          @RequestParam("name") String name,
+                          @RequestParam("city") String city) {
+        Institution newInstitution = new Institution();
+        newInstitution.setName(name);
+        newInstitution.setCity(city);
+        return institutionRepository.saveAndFlush(newInstitution);
     }
 
-    @RequestMapping(value = "{institution_id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) {
-        institutionRepository.deleteById(id);
+
+    @RequestMapping(value = "/delete/{institution_id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer institution_id) {
+        institutionRepository.deleteById(institution_id);
     }
 
     @GetMapping

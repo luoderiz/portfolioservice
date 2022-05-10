@@ -38,13 +38,19 @@ public class HardSkillController {
 */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public HardSkill create(@RequestBody final HardSkill hardSkill){
-        return hardSkillRepository.saveAndFlush(hardSkill);
+    public HardSkill create(@PathVariable String username, @RequestParam("hardskill") String hardskill){
+        Person person = personRepository.findByUsername(username);
+        Integer personId = person.getId();
+        HardSkill newHardSkill = new HardSkill();
+        newHardSkill.setSkill(hardskill);
+        newHardSkill.setPerson_id(personId);
+        return hardSkillRepository.saveAndFlush(newHardSkill);
     }
 
-    @RequestMapping(value = "{hardskill_id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) {
-        hardSkillRepository.deleteById(id);
+    @RequestMapping(value = "/{skill_id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer skill_id) {
+        hardSkillRepository.deleteById(skill_id);
     }
 
 }

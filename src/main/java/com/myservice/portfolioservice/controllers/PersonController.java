@@ -3,10 +3,12 @@ package com.myservice.portfolioservice.controllers;
 import com.myservice.portfolioservice.models.*;
 import com.myservice.portfolioservice.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @CrossOrigin
@@ -15,15 +17,26 @@ import java.util.List;
 public class PersonController {
     @Autowired
     private PersonRepository personRepository;
-
+/*
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping
-    public String getNameByUsername(@PathVariable String username) {
+    public Person get(@PathVariable String username) {
+
         return personRepository.findByUsername(username).getName();
     }
 
-/*
+
+    public Institution create(@PathVariable String username,
+                          @RequestParam("name") String name,
+                          @RequestParam("city") String city) {
+        Institution newInstitution = new Institution();
+        newInstitution.setName(name);
+        newInstitution.setCity(city);
+        return institutionRepository.saveAndFlush(newInstitution);
+    }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody final Person person){

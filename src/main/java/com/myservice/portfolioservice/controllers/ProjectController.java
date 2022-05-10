@@ -32,7 +32,30 @@ public class ProjectController {
         Integer id = person.getId();
         return projectRepository.findByPerson_id(id);
     }
-/*
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Project create(@PathVariable String username,
+                          @RequestParam("name") String name,
+                          @RequestParam("details") String details,
+                          @RequestParam("url") String url) {
+        Person person = personRepository.findByUsername(username);
+        Integer personId = person.getId();
+        Project newProject = new Project();
+        newProject.setPerson_id(personId);
+        newProject.setName(name);
+        newProject.setDetails(details);
+        newProject.setUrl(url);
+        return projectRepository.saveAndFlush(newProject);
+    }
+
+    @RequestMapping(value = "/{project_id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer project_id) {
+        projectRepository.deleteById(project_id);
+    }
+
+    /*
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("{project_id}")
@@ -40,15 +63,4 @@ public class ProjectController {
         return projectRepository.getById(project_id);
     }
 */
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Project create(@RequestBody final Project project){
-        return projectRepository.saveAndFlush(project);
-    }
-
-    @RequestMapping(value = "{project_id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Integer id) {
-        projectRepository.deleteById(id);
-    }
-
 }

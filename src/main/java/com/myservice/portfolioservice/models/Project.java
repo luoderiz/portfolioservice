@@ -18,7 +18,7 @@ public class Project {
     @Size(min = 1, max = 60, message = "Project name must be between 3 and 60 characters")
     private String name;
 
-    @Size(min = 1, max = 55, message = "Project url must be between 3 and 55 characters")
+    @Size(min = 1, max = 500, message = "Project url must be between 3 and 500 characters")
     private String url;
 
     @Size(min = 1, max = 1020, message = "Project details must be between 3 and 1020 characters")

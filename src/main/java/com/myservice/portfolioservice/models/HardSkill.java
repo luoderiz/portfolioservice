@@ -19,12 +19,12 @@ public class HardSkill {
     public HardSkill() {
     }
 
-    public Integer getHardskill_id() {
+    public Integer getSkill_id() {
         return skill_id;
     }
 
-    public void setHardskill_id(Integer id) {
-        this.skill_id = id;
+    public void setSkill_id(Integer skill_id) {
+        this.skill_id = skill_id;
     }
 
     public String getSkill() {
