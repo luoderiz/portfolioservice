@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity(name = "person")
 public class Person {
@@ -24,6 +25,10 @@ public class Person {
 
     @Email
     private String mail;
+
+    /* todo
+    private String linkedin;
+    */
 
     @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
     private String username;
@@ -81,4 +86,5 @@ public class Person {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
 }

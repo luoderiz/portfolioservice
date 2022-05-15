@@ -1,15 +1,13 @@
 package com.myservice.portfolioservice.controllers;
 
+import com.myservice.portfolioservice.dto.PersonDto;
 import com.myservice.portfolioservice.models.*;
 import com.myservice.portfolioservice.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -17,166 +15,21 @@ import java.util.List;
 public class PersonController {
     @Autowired
     private PersonRepository personRepository;
-/*
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping
-    public Person get(@PathVariable String username) {
-
-        return personRepository.findByUsername(username).getName();
+    public PersonDto getPerson(@PathVariable String username) {
+        Person person = personRepository.findByUsername(username);
+        String name =  person.getName();
+        String surname = person.getSurname();
+        String git = person.getGit();
+        // String linkedin =
+        PersonDto personDto = new PersonDto();
+        personDto.setName(name);
+        personDto.setSurname(surname);
+        personDto.setGit(git);
+        personDto.setLinkedin("linkedin.luoderiz");
+        return personDto;
     }
-
-
-    public Institution create(@PathVariable String username,
-                          @RequestParam("name") String name,
-                          @RequestParam("city") String city) {
-        Institution newInstitution = new Institution();
-        newInstitution.setName(name);
-        newInstitution.setCity(city);
-        return institutionRepository.saveAndFlush(newInstitution);
-    }
-
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person create(@RequestBody final Person person){
-        return personRepository.saveAndFlush(person);
-    }
-
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id) {
-        personRepository.deleteById(id);
-    }
-
-
-    @GetMapping("/about")
-    @ResponseStatus(HttpStatus.OK)
-    public List<About> getAbouts(@PathVariable Integer id) {
-        return getPerson(id).getAbout();
-    }
-
-
-
-    //ToDo: Preguntar si se pueden conservar las dos maneras de POST, de a uno y de a varios
-
-    @PostMapping("/{id}/about")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addAbout(@PathVariable Integer id, @RequestBody final About about ) {
-        Person person = getPerson(id);
-        about.setPerson_id(id);
-        person.addAbout(about);
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-
-    @PostMapping("/about")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addAbouts(@PathVariable Integer id, @RequestBody final List<About> abouts) {
-        Person person = getPerson(id);
-        for (About about: abouts) {
-            about.setPerson_id(id);
-            person.addAbout(about);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    @GetMapping("/softskill")
-    @ResponseStatus(HttpStatus.OK)
-    public List<SoftSkill> getSoftSkills(@PathVariable Integer id) {
-        return getPerson(id).getSoftskill();
-    }
-
-    @PostMapping("/softskill")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addSoftSkills(@PathVariable Integer id, @RequestBody final List<SoftSkill> softSkills) {
-        Person person = getPerson(id);
-        for (SoftSkill softSkill: softSkills) {
-            softSkill.setPerson_id(id);
-            person.addSoftskill(softSkill);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    @GetMapping("/hardskill")
-    @ResponseStatus(HttpStatus.OK)
-    public List<HardSkill> getHardSkills(@PathVariable Integer id) {
-        return getPerson(id).getHardskill();
-    }
-
-    @PostMapping("/hardskill")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addHardSkills(@PathVariable Integer id, @RequestBody final List<HardSkill> hardSkills) {
-        Person person = getPerson(id);
-        for (HardSkill hardSkill: hardSkills) {
-            hardSkill.setPerson_id(id);
-            person.addHardskill(hardSkill);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    @GetMapping("/education")
-    @ResponseStatus(HttpStatus.OK)
-    public  List<Education> getEducations(@PathVariable Integer id) {
-        return getPerson(id).getEducation();
-    }
-
-    @PostMapping("/education")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addEducation(@PathVariable Integer id, @RequestBody final List<Education> educations) {
-        Person person = getPerson(id);
-        for (Education education: educations) {
-            education.setPerson_id(id);
-            person.addEducation(education);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    @GetMapping("/workexperience")
-    @ResponseStatus(HttpStatus.OK)
-    public List<WorkExperience> getWorkExperiences(@PathVariable Integer id) {
-        return getPerson(id).getWorkexperience();
-    }
-
-    @PostMapping("/workexperience")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addWorkexperience(@PathVariable Integer id, @RequestBody final List<WorkExperience> workExperiences) {
-        Person person = getPerson(id);
-        for (WorkExperience workExperience: workExperiences){
-            workExperience.setPerson_id(id);
-            person.addWorkexperience(workExperience);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    @GetMapping("/project")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Project> getProjects(@PathVariable Integer id) {
-        return getPerson(id).getProjects();
-    }
-
-    @PostMapping("/project")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Person addProjects(@PathVariable Integer id, @RequestBody final List<Project> projects) {
-        Person person = getPerson(id);
-        for (Project project: projects){
-            project.setPerson_id(id);
-            person.addProjects(project);
-        }
-        personRepository.saveAndFlush(person);
-        return person;
-    }
-
-    private Person getPerson(Integer id){
-        return personRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la persona"));
-    }
-    */
-
 }
