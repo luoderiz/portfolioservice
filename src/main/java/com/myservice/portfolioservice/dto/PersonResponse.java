@@ -1,6 +1,6 @@
 package com.myservice.portfolioservice.dto;
 
-public class PersonDto {
+public class PersonResponse {
     private String name;
 
     private String surname;
@@ -17,7 +17,7 @@ public class PersonDto {
         this.linkedin = linkedin;
     }
 
-    public PersonDto() {}
+    public PersonResponse() {}
 
     public String getName() {
         return name;

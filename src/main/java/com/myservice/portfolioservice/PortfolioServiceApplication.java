@@ -26,6 +26,7 @@ public class PortfolioServiceApplication {
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/register").permitAll()
                     .antMatchers(HttpMethod.GET, "/api/*").permitAll()
                     .anyRequest().authenticated();
         }

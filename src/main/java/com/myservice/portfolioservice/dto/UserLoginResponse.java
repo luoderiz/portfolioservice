@@ -1,12 +1,12 @@
 package com.myservice.portfolioservice.dto;
 
-public class UserLogin {
+public class UserLoginResponse {
 
     private String username;
 
     private String token;
 
-    public UserLogin() {
+    public UserLoginResponse() {
     }
 
     public String getUsername() {
