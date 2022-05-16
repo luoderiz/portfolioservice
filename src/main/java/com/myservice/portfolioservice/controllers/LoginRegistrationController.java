@@ -1,14 +1,14 @@
 package com.myservice.portfolioservice.controllers;
-import com.myservice.portfolioservice.dto.UserLogin;
+
+import com.myservice.portfolioservice.dto.UserLoginResponse;
 import com.myservice.portfolioservice.models.Person;
-import com.myservice.portfolioservice.models.User;
 
 import com.myservice.portfolioservice.repositories.PersonRepository;
-import com.myservice.portfolioservice.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -17,44 +17,55 @@ import java.util.stream.Collectors;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.web.server.ResponseStatusException;
+
+import static com.myservice.portfolioservice.security.JWTAuthorizationFilter.SECRET;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class LoginRegistrationController {
-    @Autowired
-    UserRepository userRepository;
 
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
-    public UserLogin login(@RequestParam("username") String username, @RequestParam("password") String password) {
+    public UserLoginResponse login(@RequestParam("username") String username, @RequestParam("password") String password) {
+        Person requestLoginPerson = personRepository.findByUsername(username);
+        if (requestLoginPerson == null ) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "El usuario o la contraseña son incorrectos.");
+        }
+        String encodedPassword = requestLoginPerson.getPassword();
+        if (!passwordEncoder.matches(password, encodedPassword)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "El usuario o la contraseña son incorrectos.");
+        }
         String token = getJWTToken(username);
-        UserLogin userLogin = new UserLogin();
-        userLogin.setUsername(username);
-        userLogin.setToken(token);
-        return userLogin;
+        UserLoginResponse userLoginResponse = new UserLoginResponse();
+        userLoginResponse.setUsername(username);
+        userLoginResponse.setToken(token);
+        return userLoginResponse;
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("surname") String surname, @RequestParam("email") String email) {
+    public void register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("name") String name, @RequestParam("surname") String surname, @RequestParam("mail") String mail) {
+        if (personRepository.findByUsername(username) != null ) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El usuario ya existe.");
+        }
         Person person = new Person();
+        person.setUsername(username);
         person.setName(name);
         person.setSurname(surname);
-        person = personRepository.saveAndFlush(person);
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setPerson_id(person.getId());
-        userRepository.saveAndFlush(user);
+        person.setMail(mail);
+        person.setPassword(passwordEncoder.encode(password));
+        personRepository.saveAndFlush(person);
     }
 
-    //todo: secretkey
     private String getJWTToken(String username) {
-        String secretKey = "mySecretKey";
+        String secretKey = System.getenv(SECRET);
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
         String token = Jwts

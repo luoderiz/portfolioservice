@@ -17,12 +17,13 @@ public class Person {
     private String name;
 
     @NotBlank(message = "Surname should not be null or blank")
-    @Size(min = 1, max = 60, message = "Surname must be between 1 and 60 characters")
+    @Size(max = 60, message = "Surname must be between 1 and 60 characters")
     private String surname;
 
-    @Size(min = 1, max = 45, message = "Git must be between 1 and 45 characters")
+    @Size(max = 45, message = "Git must be between 1 and 45 characters")
     private String git;
 
+    @NotBlank(message = "Name should not be null or blank")
     @Email
     private String mail;
 
@@ -30,13 +31,23 @@ public class Person {
     private String linkedin;
     */
 
+    @NotBlank(message = "Username should not be null or blank")
     @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
     private String username;
 
-    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
+    @NotBlank(message = "Password should not be null or blank")
+    @Size(min = 8, max = 60, message = "Password must be between 8 and 20 characters")
     private String password;
 
     public Person() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {
