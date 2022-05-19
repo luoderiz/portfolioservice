@@ -3,7 +3,6 @@ package com.myservice.portfolioservice.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "institution")
 public class Institution {
@@ -11,14 +10,13 @@ public class Institution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer institution_id;
 
-    @NotBlank(message = "Name should not be null or blank")
+    @NotBlank(message = "Institution should not be null or blank")
     @Size(min = 2, max = 90, message = "Institution must be between 2 and 90 characters")
-    private String name;
+    private String institution;
 
-    @NotBlank(message = "City should not be null or blank")
-    @Size(min = 2, max = 60, message = "City must be between 2 and 60 characters")
-    private String city;
-
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     public Institution() {
     }
@@ -31,20 +29,19 @@ public class Institution {
         this.institution_id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getInstitution() {
+        return institution;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
-
 }

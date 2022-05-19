@@ -24,7 +24,7 @@ public class PersonController {
         String name =  person.getName();
         String surname = person.getSurname();
         String git = person.getGit();
-        // String linkedin =
+        //String linkedin = person.getLinkedin();
         PersonResponse personResponse = new PersonResponse();
         personResponse.setName(name);
         personResponse.setSurname(surname);

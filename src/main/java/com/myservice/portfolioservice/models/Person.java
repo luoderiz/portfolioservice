@@ -1,10 +1,13 @@
 package com.myservice.portfolioservice.models;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "person")
 public class Person {
@@ -27,9 +30,15 @@ public class Person {
     @Email
     private String mail;
 
-    /* todo
     private String linkedin;
-    */
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
+    }
 
     @NotBlank(message = "Username should not be null or blank")
     @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
