@@ -29,13 +29,6 @@ public class Education {
 
     private Integer person_id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "education_has_tag",
-            joinColumns = @JoinColumn(name = "education_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private List<Tag> tag;
 
     public Education() {
     }
@@ -80,13 +73,6 @@ public class Education {
         this.person_id = person_id;
     }
 
-    public List<Tag> getTag() {
-        return tag;
-    }
-
-    public void setTag(List<Tag> tag) {
-        this.tag = tag;
-    }
 
     public Institution getInstitution() {
         return institution;
