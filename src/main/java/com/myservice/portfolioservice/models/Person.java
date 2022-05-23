@@ -16,20 +16,23 @@ public class Person {
     private Integer id;
 
     @NotBlank(message = "Name should not be null or blank")
-    @Size(min = 1, max = 60, message = "Name must be between 1 and 60 characters")
+    @Size(max = 60, message = "Name shouldn't be longer than 60 characters")
     private String name;
 
     @NotBlank(message = "Surname should not be null or blank")
-    @Size(max = 60, message = "Surname must be between 1 and 60 characters")
+    @Size(max = 60, message = "Surname shouldn't be longer than 60 characters")
     private String surname;
 
-    @Size(max = 45, message = "Git must be between 1 and 45 characters")
+    @Size(max = 45, message = "Git shouldn't be longer than 45 characters")
     private String git;
 
-    @NotBlank(message = "Name should not be null or blank")
+    @NotBlank(message = "Mail should not be null or blank")
     @Email
+    @Size(max = 90, message = "Mail shouldn't be longer than 90 characters")
+
     private String mail;
 
+    @Size(max = 45, message = "Linkedin shouldn't be longer than 45 characters")
     private String linkedin;
 
     public String getLinkedin() {
@@ -41,7 +44,7 @@ public class Person {
     }
 
     @NotBlank(message = "Username should not be null or blank")
-    @Size(min = 3, max = 10, message = "Username must be between 3 and 10 characters")
+    @Size(min = 4, max = 10, message = "Username shouldn't be longer than 10 characters")
     private String username;
 
     @NotBlank(message = "Password should not be null or blank")

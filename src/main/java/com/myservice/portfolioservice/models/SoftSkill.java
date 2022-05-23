@@ -19,7 +19,7 @@ public class SoftSkill {
     }
 
     @NotBlank(message = "Skill should not be null or blank")
-    @Size(min = 3, max = 1020, message = "Skill must be between 3 and 1020 characters")
+    @Size(max = 1020, message = "Skill shouldn't be longer than 1020 characters")
     private String skill;
 
     private Integer person_id;

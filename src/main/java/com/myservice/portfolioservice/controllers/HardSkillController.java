@@ -38,11 +38,11 @@ public class HardSkillController {
 */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public HardSkill create(@PathVariable String username, @RequestParam("hardskill") String hardskill){
+    public HardSkill create(@PathVariable String username, @RequestParam("skill") String skill){
         Person person = personRepository.findByUsername(username);
         Integer personId = person.getId();
         HardSkill newHardSkill = new HardSkill();
-        newHardSkill.setSkill(hardskill);
+        newHardSkill.setSkill(skill);
         newHardSkill.setPerson_id(personId);
         return hardSkillRepository.saveAndFlush(newHardSkill);
     }

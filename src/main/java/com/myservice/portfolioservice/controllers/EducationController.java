@@ -64,7 +64,6 @@ public class EducationController {
     public Education create(@PathVariable String username,
                           @RequestParam("degree") String degree,
                           @RequestParam("date_from") String date_from,
-                          //todo ver que pide sí o sí todos los params, no acepta date null
                           @RequestParam("date_to") String date_to,
                           @RequestParam("institution_id") String institution_id) {
     Person person = personRepository.findByUsername(username);

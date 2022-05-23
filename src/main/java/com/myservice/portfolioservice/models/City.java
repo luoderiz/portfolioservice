@@ -14,7 +14,7 @@ public class City {
     private Integer city_id;
 
     @NotBlank(message = "City should not be null or blank")
-    @Size(min = 2, max = 60, message = "City must be between 2 and 60 characters")
+    @Size(max = 70, message = "City shouldn't be longer than 70 characters")
     private String city;
 
     public City() {

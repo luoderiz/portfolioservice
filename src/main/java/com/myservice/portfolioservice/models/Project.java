@@ -15,13 +15,13 @@ public class Project {
     private Integer project_id;
 
     @NotBlank(message = "Project name should not be null or blank")
-    @Size(min = 1, max = 60, message = "Project name must be between 3 and 60 characters")
+    @Size(max = 60, message = "Project name shouldn't be longer than 60 characters")
     private String name;
 
-    @Size(min = 1, max = 500, message = "Project url must be between 3 and 500 characters")
+    @Size(max = 500, message = "Project url shouldn't be longer than 500 characters")
     private String url;
 
-    @Size(min = 1, max = 1020, message = "Project details must be between 3 and 1020 characters")
+    @Size(max = 1020, message = "Project details shouldn't be longer than 1020 characters")
     private String details;
 
     private Integer person_id;

@@ -11,7 +11,7 @@ public class About {
     private Integer about_id;
 
     @NotBlank(message = "About should not be null or blank")
-    @Size(min = 3, max = 1020, message = "About must be between 3 and 1020 characters")
+    @Size(max = 1020, message = "About shouldn't be longer than 1020 characters")
     private String about;
 
     private Integer person_id;
