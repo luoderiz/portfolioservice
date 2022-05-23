@@ -11,7 +11,7 @@ public class Institution {
     private Integer institution_id;
 
     @NotBlank(message = "Institution should not be null or blank")
-    @Size(min = 2, max = 90, message = "Institution must be between 2 and 90 characters")
+    @Size(max = 90, message = "Institution shouldn't be longer than 90 characters")
     private String institution;
 
     @ManyToOne

@@ -14,7 +14,7 @@ public class Education {
     private Integer education_id;
 
     @NotBlank(message = "Degree should not be null or blank")
-    @Size(min = 10, max = 90, message = "Degree must be between 10 and 90 characters")
+    @Size(max = 90, message = "Degree shouldn't be longer than 90 characters")
     private String degree;
 
     @Past(message = "Date should be a valid past date")

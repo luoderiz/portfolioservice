@@ -38,12 +38,12 @@ public class SoftSkillController {
 */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SoftSkill create(@PathVariable String username, @RequestParam("softskill") String softskill) {
+    public SoftSkill create(@PathVariable String username, @RequestParam("skill") String skill) {
         Person person = personRepository.findByUsername(username);
         Integer personId = person.getId();
         SoftSkill newSoftSkill = new SoftSkill();
         newSoftSkill.setPerson_id(personId);
-        newSoftSkill.setSkill(softskill);
+        newSoftSkill.setSkill(skill);
         return softSkillRepository.saveAndFlush(newSoftSkill);
     }
 

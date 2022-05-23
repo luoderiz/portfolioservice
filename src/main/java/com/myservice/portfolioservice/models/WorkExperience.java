@@ -14,7 +14,7 @@ public class WorkExperience {
     private Integer workexperience_id;
 
     @NotBlank(message = "Position should not be null or blank")
-    @Size(min = 3, max = 1020, message = "Position must be between 3 and 1020 characters")
+    @Size(max = 255, message = "Position shouldn't be longer than 255 characters")
     private String position;
 
     @Past(message = "Date should be a valid past date")
@@ -23,7 +23,7 @@ public class WorkExperience {
     @Past(message = "Date should be a valid past date")
     private Date date_to;
 
-    @Size(min = 10, max = 255, message = "Details must be between 10 and 255 characters")
+    @Size(max = 255, message = "Details shouldn't be longer than 255 characters")
     private String details;
 
     private Integer person_id;
