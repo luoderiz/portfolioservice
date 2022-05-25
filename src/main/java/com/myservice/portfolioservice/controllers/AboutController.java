@@ -2,6 +2,7 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.About;
 import com.myservice.portfolioservice.models.Person;
+import com.myservice.portfolioservice.models.Project;
 import com.myservice.portfolioservice.repositories.AboutRepository;
 import com.myservice.portfolioservice.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -36,6 +38,14 @@ public class AboutController {
        return aboutRepository.getById(about_id);
     }
 */
+    @PatchMapping("/{about_id}")
+    public About update(@RequestParam ("about") Optional<String> about,
+                        @PathVariable("about_id") Integer about_id){
+        About aboutToUpdate = aboutRepository.getById(about_id);
+        about.ifPresent(aboutToUpdate::setAbout);
+        return aboutRepository.saveAndFlush(aboutToUpdate);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public About create(@PathVariable String username, @RequestParam("about") String about){

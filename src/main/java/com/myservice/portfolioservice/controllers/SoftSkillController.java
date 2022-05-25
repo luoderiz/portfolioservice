@@ -1,5 +1,6 @@
 package com.myservice.portfolioservice.controllers;
 
+import com.myservice.portfolioservice.models.About;
 import com.myservice.portfolioservice.models.Person;
 import com.myservice.portfolioservice.models.SoftSkill;
 import com.myservice.portfolioservice.repositories.PersonRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -36,6 +38,15 @@ public class SoftSkillController {
         return softSkillRepository.getById(softskill_id);
     }
 */
+
+    @PatchMapping("/{skill_id}")
+    public SoftSkill update(@RequestParam("skill") Optional<String> skill,
+                        @PathVariable("skill_id") Integer skill_id){
+        SoftSkill softSkillToUpdate = softSkillRepository.getById(skill_id);
+        skill.ifPresent(softSkillToUpdate::setSkill);
+        return softSkillRepository.saveAndFlush(softSkillToUpdate);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public SoftSkill create(@PathVariable String username, @RequestParam("skill") String skill) {

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Integer.valueOf;
 
@@ -67,6 +68,26 @@ public class WorkExperienceController {
         newWorkExperience.setDetails(details);
         newWorkExperience.setInstitution(newWorkExperienceInstitution);
         return workExperienceRepository.saveAndFlush(newWorkExperience);
+    }
+
+
+    @PatchMapping("/{workexperience_id}")
+    public WorkExperience update(@RequestParam("position") Optional<String> position,
+                            @RequestParam("date_from") Optional<String> date_from,
+                            @RequestParam("date_to") Optional<String> date_to,
+                            @RequestParam("details") Optional<String> details,
+                            @RequestParam("institution_id") Optional<String> institution_id,
+                            @PathVariable Integer workexperience_id) {
+        WorkExperience workExperienceToUpdate = workExperienceRepository.getById(workexperience_id);
+        position.ifPresent(workExperienceToUpdate::setPosition);
+        date_from.ifPresent(datefrom -> workExperienceToUpdate.setDate_from(java.sql.Date.valueOf(datefrom)));
+        date_to.ifPresent(dateto -> workExperienceToUpdate.setDate_to(java.sql.Date.valueOf(dateto)));
+        details.ifPresent(workExperienceToUpdate::setDetails);
+        institution_id.ifPresent(id -> {
+            Institution updatedInstitution = institutionRepository.findByInstitution_id(valueOf(id));
+            workExperienceToUpdate.setInstitution(updatedInstitution);
+        });
+        return workExperienceRepository.saveAndFlush(workExperienceToUpdate);
     }
 
     @RequestMapping(value = "{workexperience_id}", method = RequestMethod.DELETE)

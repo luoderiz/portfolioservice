@@ -3,6 +3,7 @@ package com.myservice.portfolioservice.controllers;
 import com.myservice.portfolioservice.models.Education;
 import com.myservice.portfolioservice.models.Institution;
 import com.myservice.portfolioservice.models.Person;
+import com.myservice.portfolioservice.models.Project;
 import com.myservice.portfolioservice.repositories.EducationRepository;
 import com.myservice.portfolioservice.repositories.InstitutionRepository;
 import com.myservice.portfolioservice.repositories.PersonRepository;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Integer.valueOf;
 
@@ -81,6 +84,22 @@ public class EducationController {
     return educationRepository.saveAndFlush(newEducation);
 }
 
+    @PatchMapping("/{education_id}")
+    public Education update(@RequestParam("degree") Optional<String> degree,
+                            @RequestParam("date_from") Optional<String> date_from,
+                            @RequestParam("date_to") Optional<String> date_to,
+                            @RequestParam("institution_id") Optional<String> institution_id,
+                          @PathVariable Integer education_id) {
+        Education educationToUpdate = educationRepository.getById(education_id);
+        degree.ifPresent(educationToUpdate::setDegree);
+        date_from.ifPresent(datefrom -> educationToUpdate.setDate_from(java.sql.Date.valueOf(datefrom)));
+        date_to.ifPresent(dateto -> educationToUpdate.setDate_to(java.sql.Date.valueOf(dateto)));
+        institution_id.ifPresent(id -> {
+            Institution updatedInstitution = institutionRepository.findByInstitution_id(valueOf(id));
+            educationToUpdate.setInstitution(updatedInstitution);
+        });
+        return educationRepository.saveAndFlush(educationToUpdate);
+    }
 
     @RequestMapping(value = "{education_id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Integer education_id) {
