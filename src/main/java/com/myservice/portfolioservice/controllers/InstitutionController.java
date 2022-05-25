@@ -26,18 +26,7 @@ public class InstitutionController {
         return institutionRepository.findAll();
     }
 
-    /*
-    @GetMapping("/{institution_id}")
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping
-    private Institution getInstitution(Integer institution_id){
-        return institutionRepository.findById(institution_id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No existe la institución"));
-    }
-
-     */
-//todo ver que pasa
-    @PostMapping("/add")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Institution create(
                           @RequestParam("institution") String institution,
@@ -47,12 +36,6 @@ public class InstitutionController {
         newInstitution.setInstitution(institution);
         newInstitution.setCity(city);
         return institutionRepository.saveAndFlush(newInstitution);
-    }
-
-    @RequestMapping(value = "/delete/{institution_id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer institution_id) {
-        institutionRepository.deleteById(institution_id);
     }
 
 }
