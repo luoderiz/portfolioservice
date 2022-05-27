@@ -2,7 +2,6 @@ package com.myservice.portfolioservice.controllers;
 
 import com.myservice.portfolioservice.models.About;
 import com.myservice.portfolioservice.models.Person;
-import com.myservice.portfolioservice.models.Project;
 import com.myservice.portfolioservice.repositories.AboutRepository;
 import com.myservice.portfolioservice.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;

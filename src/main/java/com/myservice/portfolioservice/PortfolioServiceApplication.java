@@ -27,7 +27,7 @@ public class PortfolioServiceApplication {
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/register").permitAll()
-                    .antMatchers(HttpMethod.GET, "/api/*").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api/user/**").permitAll()
                     .anyRequest().authenticated();
         }
     }
